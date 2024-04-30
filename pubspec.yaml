@@ -1,5 +1,5 @@
 name: talking_baby_flutter
-description: "A new Flutter project."
+description: "Mobil app for [Company Name Here] child toy management."
 
 # Prevent accidental publishing to pub.dev.
 publish_to: 'none'
@@ -14,6 +14,18 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+
+  # State management
+  flutter_riverpod: ^2.5.1
+
+  # Routing Dependencies
+  go_router: ^13.0.1
+
+  # UI Dependencies
+  google_fonts: ^6.1.0
+
+  # Other Dependencies
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:

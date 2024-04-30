@@ -1,0 +1,13 @@
+{
+  "@@locale": "tr",
+  "appTitle": "Konuşan Bebek",
+  "@appTitle": {
+    "description": "Uygulamanın başlığı"
+  },
+  "navigationHome": "Ana Sayfa",
+  "homeTitle": "Ana Sayfa",
+  "@homeTitle": {
+    "description": "Ana sayfa başlığı"
+  },
+  "homeWelcome": "Konuşan Bebek uygulamasına hoşgeldiniz!"
+}
