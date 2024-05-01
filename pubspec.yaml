@@ -12,6 +12,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  # Localization Dependencies
   flutter_localizations:
     sdk: flutter
 
@@ -26,6 +28,7 @@ dependencies:
 
   # Other Dependencies
   shared_preferences: ^2.2.3
+  esp_smartconfig: ^2.0.0
 
 dev_dependencies:
   flutter_test:

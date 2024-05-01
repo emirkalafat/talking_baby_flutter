@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talking_baby_flutter/src/navigation/main_tab/home/home_screen.dart';
 import 'package:talking_baby_flutter/src/navigation/main_tab/profile/profile_screen.dart';
+import 'package:talking_baby_flutter/src/navigation/main_tab/settings/settings_controller.dart';
+import 'package:talking_baby_flutter/src/navigation/main_tab/settings/settings_service.dart';
 import 'package:talking_baby_flutter/src/navigation/main_tab/settings/settings_view.dart';
 
 final _key = GlobalKey<NavigatorState>();
@@ -12,7 +14,7 @@ final _shellNavigatorHomeKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellHome');
 final _shellNavigatorProfileKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellProfile');
-    final _shellNavigatorSettingsKey =
+final _shellNavigatorSettingsKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellSettings');
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -56,16 +58,19 @@ final routerProvider = Provider<GoRouter>((ref) {
             ),
           ]),
           //Settings Tab
-          StatefulShellBranch(navigatorKey: _shellNavigatorSettingsKey, routes: [
-            GoRoute(
-              path: SettingsTab.routeLocation,
-              name: SettingsTab.routeName,
-              builder: (context, state) {
-                final t = AppLocalizations.of(context)!;
-                return SettingsTab(t: t);
-              },
-            ),
-          ]),
+          StatefulShellBranch(
+              navigatorKey: _shellNavigatorSettingsKey,
+              routes: [
+                GoRoute(
+                  path: SettingsTab.routeLocation,
+                  name: SettingsTab.routeName,
+                  builder: (context, state) {
+                    final t = AppLocalizations.of(context)!;
+                    final controller = SettingsController(SettingsService());
+                    return SettingsTab(t: t, controller: controller);
+                  },
+                ),
+              ]),
         ],
       ),
       //SplashPage
