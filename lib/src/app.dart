@@ -36,9 +36,9 @@ class MyApp extends ConsumerWidget {
       // Define a light and dark color theme. Then, read the user's
       // preferred ThemeMode (light, dark, or system default) from the
       // themeNotifierProvider
-      theme: darkThemeMode,
+      theme: lightThemeMode,
       darkTheme: darkThemeMode,
-      themeMode: ref.watch(themeNotifierProvider.notifier).state,
+      themeMode: ref.watch(themeNotifierProvider),
 
       // Define a function to handle named routes in order to support
       // Flutter web url navigation and deep linking.

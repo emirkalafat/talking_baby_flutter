@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'src/app.dart';
+import 'package:talking_baby_flutter/src/app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

@@ -20,10 +20,11 @@ class SettingsTab extends ConsumerStatefulWidget {
 }
 
 class _SettingsScreenState extends ConsumerState<SettingsTab> {
-  ThemeMode get theme => ref.read(themeNotifierProvider.notifier).state!;
+  
 
   @override
   Widget build(BuildContext context) {
+    ThemeMode theme = ref.read(themeNotifierProvider);
     // Read the SettingsController from the provider
 
     return Scaffold(

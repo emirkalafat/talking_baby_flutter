@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:talking_baby_flutter/src/navigation/main_tab/home/home_screen.dart';
+import 'package:talking_baby_flutter/src/navigation/main_tab/home/home_tab.dart';
 import 'package:talking_baby_flutter/src/navigation/main_tab/profile/profile_screen.dart';
-import 'package:talking_baby_flutter/src/navigation/main_tab/settings/settings_view.dart';
+import 'package:talking_baby_flutter/src/navigation/main_tab/settings/settings_tab.dart';
 
 final _key = GlobalKey<NavigatorState>(debugLabel: 'root');
 

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final themeNotifierProvider = StateNotifierProvider<ThemeNotifier, ThemeMode?>(
+final themeNotifierProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>(
   (ref) => ThemeNotifier(),
 );
 
-class ThemeNotifier extends StateNotifier<ThemeMode?> {
-  ThemeNotifier() : super(null) {
+class ThemeNotifier extends StateNotifier<ThemeMode> {
+  ThemeNotifier() : super(ThemeMode.system) {
     getTheme().then((value) {
       state = value;
     });
@@ -39,25 +38,25 @@ class ThemeNotifier extends StateNotifier<ThemeMode?> {
       return;
     }
     state = themeMode;
-    await prefs.setInt('themeMode', state!.index);
+    await prefs.setInt('themeMode', state.index);
   }
 }
 
 final darkThemeMode = ThemeData(
   brightness: Brightness.dark,
   visualDensity: VisualDensity.adaptivePlatformDensity,
-  textTheme: buildTextTheme(),
+  textTheme: buildTextTheme(), //TODO: configure this
   colorScheme: darkColorScheme,
   useMaterial3: true,
   inputDecorationTheme: const InputDecorationTheme(
-    border: OutlineInputBorder(),
+    border: OutlineInputBorder(), //TODO: configure this
   ),
 );
 
 final lightThemeMode = ThemeData(
   brightness: Brightness.light,
   visualDensity: VisualDensity.adaptivePlatformDensity,
-  textTheme: buildTextTheme(),
+  textTheme: buildTextTheme(), //TODO: configure this
   colorScheme: lightColorScheme,
   useMaterial3: true,
   inputDecorationTheme: const InputDecorationTheme(
