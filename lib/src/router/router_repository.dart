@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talking_baby_flutter/src/navigation/main_tab/home/home_tab.dart';
 import 'package:talking_baby_flutter/src/navigation/main_tab/profile/profile_screen.dart';
-import 'package:talking_baby_flutter/src/navigation/main_tab/settings/settings_tab.dart';
+import 'package:talking_baby_flutter/src/navigation/main_tab/settings/settings_screen.dart';
 
 final _key = GlobalKey<NavigatorState>(debugLabel: 'root');
 
@@ -13,8 +13,6 @@ final _shellNavigatorHomeKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellHome');
 final _shellNavigatorProfileKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellProfile');
-final _shellNavigatorSettingsKey =
-    GlobalKey<NavigatorState>(debugLabel: 'shellSettings');
 
 final routerProvider = Provider<GoRouter>((ref) {
   //final authState = ref.watch(authStageChangeProvider);
@@ -53,27 +51,22 @@ final routerProvider = Provider<GoRouter>((ref) {
             navigatorKey: _shellNavigatorProfileKey,
             routes: [
               GoRoute(
-                path: ProfileTab.routeLocation,
-                name: ProfileTab.routeName,
-                builder: (context, state) {
-                  final t = AppLocalizations.of(context)!;
-                  return ProfileTab(t: t);
-                },
-              ),
-            ],
-          ),
-          //Settings Tab
-          StatefulShellBranch(
-            navigatorKey: _shellNavigatorSettingsKey,
-            routes: [
-              GoRoute(
-                path: SettingsTab.routeLocation,
-                name: SettingsTab.routeName,
-                builder: (context, state) {
-                  final t = AppLocalizations.of(context)!;
-                  return SettingsTab(t: t);
-                },
-              ),
+                  path: ProfileTab.routeLocation,
+                  name: ProfileTab.routeName,
+                  builder: (context, state) {
+                    final t = AppLocalizations.of(context)!;
+                    return ProfileTab(t: t);
+                  },
+                  routes: [
+                    GoRoute(
+                      path: SettingsScreen.routeName,
+                      name: SettingsScreen.routeName,
+                      builder: (context, state) {
+                        final t = AppLocalizations.of(context)!;
+                        return SettingsScreen(t: t);
+                      },
+                    ),
+                  ]),
             ],
           ),
         ],
@@ -153,8 +146,6 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
         destinations: [
           NavigationDestination(
               label: t.navigationHome, icon: const Icon(Icons.home)),
-          NavigationDestination(
-              label: t.navigationHome, icon: const Icon(Icons.settings)),
           NavigationDestination(
               label: t.navigationHome, icon: const Icon(Icons.person)),
         ],

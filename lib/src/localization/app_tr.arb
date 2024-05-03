@@ -5,9 +5,24 @@
     "description": "Uygulamanın başlığı"
   },
   "navigationHome": "Ana Sayfa",
+  "navigationProfile": "Profil",
   "homeTitle": "Ana Sayfa",
   "@homeTitle": {
     "description": "Ana sayfa başlığı"
   },
-  "homeWelcome": "Konuşan Bebek uygulamasına hoş geldiniz!"
+  "homeWelcome": "Konuşan Bebek uygulamasına hoş geldiniz!",
+  "profileTitle": "Profil",
+  "@profileTitle": {
+    "description": "Profil sayfası başlığı"
+  },
+  "profileWelcome": "Profil sayfasına hoş geldiniz!",
+  "settingsTitle": "Ayarlar",
+  "@settingsTitle": {
+    "description": "Ayarlar sayfası başlığı"
+  },
+  "settingsWelcome": "Ayarlar sayfasına hoş geldiniz!",
+  "settings_theme_title": "Tema",
+  "settings_theme_dark": "Karanlık",
+  "settings_theme_light": "Aydınlık",
+  "settings_theme_system": "Sistem"
 }
