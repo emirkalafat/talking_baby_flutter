@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:talking_baby_flutter/src/navigation/main_tab/settings/theme.dart';
 
 class HomeTab extends ConsumerWidget {
   const HomeTab({super.key, required this.t});
@@ -24,6 +24,7 @@ class HomeTab extends ConsumerWidget {
             Text(
               t.homeWelcome,
             ),
+            Text(ref.read(themeNotifierProvider).toString())
           ],
         ),
       ),

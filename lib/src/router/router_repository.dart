@@ -4,12 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talking_baby_flutter/src/navigation/main_tab/home/home_screen.dart';
 import 'package:talking_baby_flutter/src/navigation/main_tab/profile/profile_screen.dart';
-import 'package:talking_baby_flutter/src/navigation/main_tab/settings/settings_controller.dart';
-import 'package:talking_baby_flutter/src/navigation/main_tab/settings/settings_service.dart';
 import 'package:talking_baby_flutter/src/navigation/main_tab/settings/settings_view.dart';
 
-final _key = GlobalKey<NavigatorState>();
+final _key = GlobalKey<NavigatorState>(debugLabel: 'root');
 
+//For every tab, we need a navigator key
 final _shellNavigatorHomeKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellHome');
 final _shellNavigatorProfileKey =
@@ -36,41 +35,47 @@ final routerProvider = Provider<GoRouter>((ref) {
         },
         branches: [
           //Home Tab
-          StatefulShellBranch(navigatorKey: _shellNavigatorHomeKey, routes: [
-            GoRoute(
-              path: HomeTab.routeLocation,
-              name: HomeTab.routeName,
-              builder: (context, state) {
-                final t = AppLocalizations.of(context)!;
-                return HomeTab(t: t);
-              },
-            ),
-          ]),
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorHomeKey,
+            routes: [
+              GoRoute(
+                path: HomeTab.routeLocation,
+                name: HomeTab.routeName,
+                builder: (context, state) {
+                  final t = AppLocalizations.of(context)!;
+                  return HomeTab(t: t);
+                },
+              ),
+            ],
+          ),
           //Profile Tab
-          StatefulShellBranch(navigatorKey: _shellNavigatorProfileKey, routes: [
-            GoRoute(
-              path: ProfileTab.routeLocation,
-              name: ProfileTab.routeName,
-              builder: (context, state) {
-                final t = AppLocalizations.of(context)!;
-                return ProfileTab(t: t);
-              },
-            ),
-          ]),
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorProfileKey,
+            routes: [
+              GoRoute(
+                path: ProfileTab.routeLocation,
+                name: ProfileTab.routeName,
+                builder: (context, state) {
+                  final t = AppLocalizations.of(context)!;
+                  return ProfileTab(t: t);
+                },
+              ),
+            ],
+          ),
           //Settings Tab
           StatefulShellBranch(
-              navigatorKey: _shellNavigatorSettingsKey,
-              routes: [
-                GoRoute(
-                  path: SettingsTab.routeLocation,
-                  name: SettingsTab.routeName,
-                  builder: (context, state) {
-                    final t = AppLocalizations.of(context)!;
-                    final controller = SettingsController(SettingsService());
-                    return SettingsTab(t: t, controller: controller);
-                  },
-                ),
-              ]),
+            navigatorKey: _shellNavigatorSettingsKey,
+            routes: [
+              GoRoute(
+                path: SettingsTab.routeLocation,
+                name: SettingsTab.routeName,
+                builder: (context, state) {
+                  final t = AppLocalizations.of(context)!;
+                  return SettingsTab(t: t);
+                },
+              ),
+            ],
+          ),
         ],
       ),
       //SplashPage
@@ -83,28 +88,24 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
     ],
     redirect: (context, state) {
-      //// If our async state is loading, don't perform redirects, yet
+      // If our async state is loading, don't perform redirects, yet
       //if (authState.isLoading || authState.hasError) return null;
-      ////if (!familyState) return null;
-//
-      ////check if user is in family if not, redirect to family create if so, redirect to home
-//
-      //// Here we guarantee that hasData == true, i.e. we have a readable value
-//
-      //// This has to do with how the FirebaseAuth SDK handles the "log-in" state
-      //// Returning `null` means "we are not authorized"
-      //final isAuth = authState.valueOrNull != null;
-//
-      //final isSplash = state.fullPath == SplashPage.routeLocation;
-      //if (isSplash) {
-      //  return isAuth ? HomeScreen.routeLocation : LoginScreen.routeLocation;
-      //}
-//
+
+      // This has to do with how the FirebaseAuth SDK handles the "log-in" state
+      // Returning `null` means "we are not authorized"
+      const isAuth = true; //authState.valueOrNull != null;
+
+      final isSplash = state.fullPath == SplashPage.routeLocation;
+      if (isSplash) {
+        return isAuth
+            ? HomeTab.routeLocation
+            : null; //LoginScreen.routeLocation;
+      }
+
       //final isLoggingIn = state.fullPath == LoginScreen.routeLocation;
-      //if (isLoggingIn) return isAuth ? HomeScreen.routeLocation : null;
-//
-      //return isAuth ? null : SplashPage.routeLocation;
-      return HomeTab.routeLocation;
+      //if (isLoggingIn) return isAuth ? HomeTab.routeLocation : null;
+
+      return isAuth ? null : SplashPage.routeLocation;
     },
   );
 });

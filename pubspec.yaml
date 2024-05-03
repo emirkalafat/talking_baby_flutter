@@ -21,7 +21,7 @@ dependencies:
   flutter_riverpod: ^2.5.1
 
   # Routing Dependencies
-  go_router: ^13.0.1
+  go_router: ^14.0.2
 
   # UI Dependencies
   google_fonts: ^6.1.0

@@ -6,8 +6,8 @@ final localeNotifierProvider = StateNotifierProvider<LocaleNotifier, Locale>(
 );
 
 class LocaleNotifier extends StateNotifier<Locale> {
-  Locale _locale;
-  List<Locale> _supportedLocales;
+  final Locale _locale;
+  final List<Locale> _supportedLocales;
   LocaleNotifier(
       {Locale locale = const Locale('tr', 'TR'),
       List<Locale> supportedLocales = const [

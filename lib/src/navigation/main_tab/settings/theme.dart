@@ -4,62 +4,42 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum ThemeMode {
-  light,
-  dark,
-}
-
-final themeNotifierProvider = StateNotifierProvider<ThemeNotifier, ThemeData?>(
+final themeNotifierProvider = StateNotifierProvider<ThemeNotifier, ThemeMode?>(
   (ref) => ThemeNotifier(),
 );
 
-class ThemeNotifier extends StateNotifier<ThemeData?> {
-  ThemeMode _mode;
-  ThemeNotifier({
-    ThemeMode mode = ThemeMode.light,
-  })  : _mode = mode,
-        super(darkThemeMode) {
-    getTheme();
-  }
-
-  ThemeMode get theme {
-    return _mode;
+class ThemeNotifier extends StateNotifier<ThemeMode?> {
+  ThemeNotifier() : super(null) {
+    getTheme().then((value) {
+      state = value;
+    });
   }
 
   Future<ThemeMode> getTheme() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final theme = prefs.getString('theme');
-
-    if (theme == 'light') {
-      _mode = ThemeMode.light;
-      state = lightThemeMode;
+    final theme = prefs.getInt('themeMode');
+    switch (theme) {
+      case 1:
+        state = ThemeMode.light;
+        return ThemeMode.light;
+      case 2:
+        state = ThemeMode.dark;
+        return ThemeMode.dark;
+      case 0:
+      default:
+        state = ThemeMode.system;
+        return ThemeMode.system;
     }
-    else {
-      _mode = ThemeMode.dark;
-      state = darkThemeMode;
-    }
-    return _mode;
   }
 
-  Brightness getSystemThemeMode() {
-    final platformBrightness =
-        SchedulerBinding.instance.platformDispatcher.platformBrightness;
-    print('theme ' + platformBrightness.toString());
-    return platformBrightness;
-  }
-
-  void setTheme(ThemeMode themeMode) async {
+  void setTheme(ThemeMode? themeMode) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (themeMode == ThemeMode.dark) {
-      _mode = ThemeMode.dark;
-      state = darkThemeMode;
-      await prefs.setString('theme', 'dark');
+
+    if (themeMode == null) {
+      return;
     }
-    else {
-      _mode = ThemeMode.light;
-      state = lightThemeMode;
-      await prefs.setString('theme', 'light');
-    }
+    state = themeMode;
+    await prefs.setInt('themeMode', state!.index);
   }
 }
 
@@ -103,11 +83,9 @@ const lightColorScheme = ColorScheme(
   errorContainer: Color(0xFFFFDAD6),
   onError: Color(0xFFFFFFFF),
   onErrorContainer: Color(0xFF410002),
-  background: Color(0xFFFBFCFE),
-  onBackground: Color(0xFF191C1E),
   surface: Color(0xFFFBFCFE),
   onSurface: Color(0xFF191C1E),
-  surfaceVariant: Color(0xFFDCE4E8),
+  surfaceContainerHighest: Color(0xFFDCE4E8),
   onSurfaceVariant: Color(0xFF40484C),
   outline: Color(0xFF70787D),
   onInverseSurface: Color(0xFFEFF1F3),
@@ -135,11 +113,9 @@ const darkColorScheme = ColorScheme(
   errorContainer: Color(0xFF93000A),
   onError: Color(0xFF690005),
   onErrorContainer: Color(0xFFFFDAD6),
-  background: Color(0xFF191C1E),
-  onBackground: Color(0xFFE1E3E4),
   surface: Color(0xFF191C1E),
   onSurface: Color(0xFFE1E3E4),
-  surfaceVariant: Color(0xFF40484C),
+  surfaceContainerHighest: Color(0xFF40484C),
   onSurfaceVariant: Color(0xFFC0C8CC),
   outline: Color(0xFF8A9296),
   onInverseSurface: Color(0xFF191C1E),

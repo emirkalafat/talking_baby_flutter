@@ -29,7 +29,7 @@ class _ProfileScreenState extends ConsumerState<ProfileTab> {
           ),
         ],
       ),
-      body: Center(
+      body: const Center(
         child: Text('Profile Screen'),
       ),
     );
