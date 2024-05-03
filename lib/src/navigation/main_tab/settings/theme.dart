@@ -9,12 +9,12 @@ final themeNotifierProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>(
 
 class ThemeNotifier extends StateNotifier<ThemeMode> {
   ThemeNotifier() : super(ThemeMode.system) {
-    getTheme().then((value) {
+    initTheme().then((value) {
       state = value;
     });
   }
 
-  Future<ThemeMode> getTheme() async {
+  Future<ThemeMode> initTheme() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final theme = prefs.getInt('themeMode');
     switch (theme) {
