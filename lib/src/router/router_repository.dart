@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talking_baby_flutter/src/navigation/main_tab/home/home_tab.dart';
+import 'package:talking_baby_flutter/src/navigation/main_tab/home/scan_devices/scan_devices_screen.dart';
 import 'package:talking_baby_flutter/src/navigation/main_tab/profile/profile_screen.dart';
 import 'package:talking_baby_flutter/src/navigation/main_tab/settings/settings_screen.dart';
 
@@ -43,6 +44,15 @@ final routerProvider = Provider<GoRouter>((ref) {
                   final t = AppLocalizations.of(context)!;
                   return HomeTab(t: t);
                 },
+                routes: [
+                  GoRoute(
+                    path: ScanDevicesScreen.routeName,
+                    name: ScanDevicesScreen.routeName,
+                    builder: (context, state) {
+                      return const ScanDevicesScreen();
+                    },
+                  ),
+                ]
               ),
             ],
           ),

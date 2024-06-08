@@ -29,6 +29,7 @@ dependencies:
   # Other Dependencies
   shared_preferences: ^2.2.3
   esp_smartconfig: ^2.0.0
+  flutter_blue_plus: ^1.32.7
 
 dev_dependencies:
   flutter_test:
